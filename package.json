@@ -1,4 +1,6 @@
 {
   "name": "jestHoistingTest",
-  "packageManager": "yarn@4.6.0"
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }

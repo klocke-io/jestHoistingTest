@@ -1,13 +1,15 @@
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+# Ignore node_modules and build artifacts
+node_modules/
+dist/
+coverage/
 
-# Swap the comments on the following lines if you wish to use zero-installs
-# In that case, don't forget to run `yarn config set enableGlobalCache false`!
-# Documentation here: https://yarnpkg.com/features/caching#zero-installs
+# Ignore logs and system files
+*.log
+.DS_Store
 
-#!.yarn/cache
-.pnp.*
+# Allow only source, test, and config files
+!lib/
+!__tests__/
+!package.json
+!jest.config.cjs
+!README.md
