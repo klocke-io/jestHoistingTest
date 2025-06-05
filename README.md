@@ -123,7 +123,3 @@ ProductVersion:         15.5
 BuildVersion:           24F74
 
 ```
-
-## Context
-
-<!-- Add any additional context or links here -->
