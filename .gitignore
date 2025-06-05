@@ -13,3 +13,4 @@ coverage/
 !package.json
 !jest.config.cjs
 !README.md
+/.idea/
