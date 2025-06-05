@@ -2,27 +2,32 @@
 
 ## Setup Instructions
 
-1. **Install dependencies:**
+1. **Clone the repository:**
+   ```zsh
+   git clone git@github.com:klocke-io/jestHoistingTest.git
+   cd jestHoistingTest
+   ```
+2. **Install dependencies:**
    ```zsh
    npm install
    ```
-2. **Run specific test files:**
-   For the `.js` test:
+3. **Run specific test files:**
+    For the `.js` test: (Works as expected ✅)
      ```zsh
      npx jest __tests__/index.spec.js
      ```
-   For the `.cjs` test:
+   For the `.cjs` test: (Dose not work as expected ❌)
      ```zsh
      npx jest __tests__/index.spec.cjs
      ```
-   For the manually hoisted `.cjs` test:
+   For the manually hoisted `.cjs` test (Works as expected ✅):
      ```zsh
      npx jest __tests__/index.manually-hoisted.cjs
      ```
 
 ## Project and Code Explanation
 
-This repository demonstrates a potential bug in Jest related to the hoisting of `jest.mock` when using `.cjs` test files.
+This repository demonstrates a potential bug in Jest related to the hoisting of `jest.mock` when using `.cjs` file extension for test files.
 
 - **lib/index.js**: Exports a function `businessMessage` that returns `'foo bar'`.
   ```js
@@ -33,7 +38,7 @@ This repository demonstrates a potential bug in Jest related to the hoisting of 
   module.exports = { businessMessage };
   ```
 
-- **__tests__/index.spec.js**: Standard Jest test in CommonJS, with `jest.mock` after the `require`. This works as expected because Jest hoists the mock.
+- **__tests__/index.spec.js**: ✅ Standard Jest test in CommonJS, with `jest.mock` after the `require`. This works as expected because Jest hoists the mock.
   ```js
   // __tests__/index.spec.js
   const { businessMessage } = require('../lib');
@@ -46,7 +51,7 @@ This repository demonstrates a potential bug in Jest related to the hoisting of 
   });
   ```
 
-- **__tests__/index.spec.cjs**: Identical to the `.js` test, but with a `.cjs` extension. Here, `jest.mock` is not hoisted, so the real implementation is used instead of the mock.
+- **__tests__/index.spec.cjs**: ❌ Identical to the `.js` test, but with a `.cjs` extension. Here, `jest.mock` is not hoisted, so the real implementation is used instead of the mock.
   ```js
   // __tests__/index.spec.cjs
   const { businessMessage } = require('../lib');
@@ -60,7 +65,7 @@ This repository demonstrates a potential bug in Jest related to the hoisting of 
   // This test will fail because jest.mock is not hoisted in .cjs files
   ```
 
-- **__tests__/index.manually-hoisted.cjs**: The mock is placed before the `require` statement, manually simulating hoisting. This test works as expected, even with the `.cjs` extension.
+- **__tests__/index.manually-hoisted.cjs**: ✅ The mock is placed before the `require` statement, manually simulating hoisting. This test works as expected, even with the `.cjs` extension.
   ```js
   // __tests__/index.manually-hoisted.cjs
   jest.mock('../lib', () => ({
